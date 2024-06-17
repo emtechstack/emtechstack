@@ -87,3 +87,6 @@ def display_services():
         print(colored("docker-compose.yml file not found.", 'red'))
     except yaml.YAMLError as exc:
         print(colored(f"Error reading docker-compose.yml file: {exc}", 'red'))
+
+def clean_code():
+    subprocess.run(['black', '.'], check=True)
