@@ -84,9 +84,11 @@ def build_env(name):
         with open(script_path, 'w') as script_file:
             script_file.write(script_content)
 
-        # Make the script executable and run it
-        subprocess.run(['chmod', '+x', script_path], check=True)
-        subprocess.run(['./' + script_path], check=True)
+        # Make the script executable
+        os.chmod(script_path, 0o775)
+
+        # Run the script using /bin/bash
+        subprocess.run(['/bin/bash', script_path], check=True)
         
         # Clean up the temporary script
         os.remove(script_path)
@@ -96,6 +98,7 @@ def build_env(name):
     
     except subprocess.CalledProcessError as e:
         print(f"An error occurred while building the environment: {e}")
+
 
 def display_services():
     try:
