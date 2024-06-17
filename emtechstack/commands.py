@@ -10,35 +10,46 @@ from termcolor import colored
 
 def init_profile(profile, name=None):
     repo_url = 'https://github.com/emtechstack/infra-profiles/archive/refs/heads/main.zip'
-    response = requests.get(repo_url)
-    if response.status_code == 200:
-        zip_file = zipfile.ZipFile(BytesIO(response.content))
-        profile_path = f'infra-profiles-main/profiles/{profile}'
-        repo_name = profile if name is None else name
+    temp_dir = 'emtechstack_temp_profile_download'
+    
+    try:
+        # Step 1: Download the repo
+        response = requests.get(repo_url)
+        if response.status_code != 200:
+            print(f"Failed to download profile from {repo_url}")
+            return
         
+        # Step 2: Unzip the repo
+        zip_file = zipfile.ZipFile(BytesIO(response.content))
+        zip_file.extractall(temp_dir)
+        
+        profile_path = os.path.join(temp_dir, 'infra-profiles-main', 'profiles', profile)
+        if not os.path.exists(profile_path):
+            print(f"Profile '{profile}' not found in the repository.")
+            return
+        
+        # Step 3: Create the destination directory
+        repo_name = name if name else profile
         dest_dir = os.path.join(os.getcwd(), repo_name)
         
         if not os.path.exists(dest_dir):
             os.makedirs(dest_dir)
         
-        if not any(file.startswith(profile_path) for file in zip_file.namelist()):
-            print(f"Profile '{profile}' not found in the repository.")
-            return
+        # Copy all files from the profile directory to the destination directory
+        for root, dirs, files in os.walk(profile_path):
+            for file in files:
+                src_file = os.path.join(root, file)
+                shutil.move(src_file, dest_dir)
         
-        os.makedirs(dest_dir, exist_ok=True)
-        for file in zip_file.namelist():
-            if file.startswith(profile_path) and not file.endswith('/'):
-                zip_file.extract(file, dest_dir)
-        
-        # Move files up one directory level
-        src_dir = os.path.join(dest_dir, profile_path.split('/')[-1])
-        for item in os.listdir(src_dir):
-            shutil.move(os.path.join(src_dir, item), dest_dir)
-        shutil.rmtree(src_dir)
-        
+        # Step 5: Clean up the downloaded zip and extracted files
+        shutil.rmtree(temp_dir)
         print(f"Initialized profile at {dest_dir}")
-    else:
-        print(f"Failed to download profile from {repo_url}")
+    
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        if os.path.exists(temp_dir):
+            shutil.rmtree(temp_dir)
+
 
 def start_infra():
     subprocess.run(['docker-compose', 'up', '-d'], check=True)
