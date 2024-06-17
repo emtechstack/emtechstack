@@ -8,9 +8,10 @@ def cli():
 
 @cli.command()
 @click.option('--profile', required=True, help='Profile path to initialize')
-def init(profile):
+@click.option('--name', help='Custom directory name for the cloned profile')
+def init(profile, name):
     """Initialize the profile by cloning the repo"""
-    init_profile(profile)
+    init_profile(profile, name)
 
 @cli.command()
 def start_infra():
