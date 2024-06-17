@@ -16,10 +16,10 @@ def init_profile(profile, name=None):
         profile_path = f'infra-profiles-main/profiles/{profile}'
         repo_name = profile if name is None else name
         
-        if not os.path.exists(repo_name):
-            os.makedirs(repo_name)
-        
         dest_dir = os.path.join(os.getcwd(), repo_name)
+        
+        if not os.path.exists(dest_dir):
+            os.makedirs(dest_dir)
         
         if not any(file.startswith(profile_path) for file in zip_file.namelist()):
             print(f"Profile '{profile}' not found in the repository.")
