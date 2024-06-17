@@ -7,6 +7,8 @@ import yaml
 from io import BytesIO
 from tabulate import tabulate
 from termcolor import colored
+import pkg_resources  # to retrieve the package version
+
 
 def init_profile(profile, name=None):
     repo_url = 'https://github.com/emtechstack/infra-profiles/archive/refs/heads/main.zip'
@@ -114,10 +116,19 @@ def display_services():
         for service, details in services.items():
             ports = details.get('ports', [])
             for port in ports:
-                table_data.append([service, port])
+                table_data.append([service, port.split(':')[0], port.split(':')[1]])
         
         if table_data:
-            print(colored(tabulate(table_data, headers=['Service', 'Port'], tablefmt='grid'), 'green'))
+            # Retrieve the package version
+            version = pkg_resources.get_distribution('emtechstack').version
+            
+            # Print the title
+            title = colored(f"EmTechStack AI Dev Tools (Version {version})", 'cyan', attrs=['bold'])
+            print(title)
+            print("=" * len(title))
+            
+            # Print the table
+            print(colored(tabulate(table_data, headers=['Service', 'Port Local', 'Port Docker'], tablefmt='grid'), 'green'))
         else:
             print(colored("No services found in the docker-compose.yml file.", 'red'))
     
@@ -125,6 +136,8 @@ def display_services():
         print(colored("docker-compose.yml file not found.", 'red'))
     except yaml.YAMLError as exc:
         print(colored(f"Error reading docker-compose.yml file: {exc}", 'red'))
+    except pkg_resources.DistributionNotFound:
+        print(colored("emtechstack package not found. Ensure it is installed properly.", 'red'))
 
 def clean_code():
     subprocess.run(['black', '.'], check=True)
