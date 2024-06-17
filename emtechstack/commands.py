@@ -116,19 +116,22 @@ def display_services():
         for service, details in services.items():
             ports = details.get('ports', [])
             for port in ports:
-                table_data.append([service, port.split(':')[0], port.split(':')[1]])
+                table_data.append([service, port.split(':')[0],port.split(':')[1]])
         
         if table_data:
             # Retrieve the package version
             version = pkg_resources.get_distribution('emtechstack').version
             
-            # Print the title
-            title = colored(f"EmTechStack AI Dev Tools (Version {version})", 'cyan', attrs=['bold'])
-            print(title)
-            print("=" * len(title))
+            # Prepare the title row
+            title = f"EmTechStack AI Dev Tools (Version {version})"
             
-            # Print the table
-            print(colored(tabulate(table_data, headers=['Service', 'Port Local', 'Port Docker'], tablefmt='grid'), 'green'))
+            # Print the table with title as the first row
+            table = tabulate(table_data, headers=['Service', 'Port Local', 'Port Docker'], tablefmt='grid')
+            title_line = "+" + "-" * (len(table.split('\n')[0]) - 2) + "+"
+            title_row = f"| {title.center(len(title_line) - 4)} |"
+            full_table = f"{title_line}\n{title_row}\n{table}"
+            
+            print(colored(full_table, 'green'))
         else:
             print(colored("No services found in the docker-compose.yml file.", 'red'))
     
