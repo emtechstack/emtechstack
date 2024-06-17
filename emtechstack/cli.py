@@ -1,5 +1,5 @@
 import click
-from emtechstack.commands import init_profile, start_infra, stop_infra, start_api, stop_api, build_env
+from emtechstack.commands import init_profile, start_infra, stop_infra, start_api, stop_api, build_env, clean_code
 
 @click.group()
 def cli():
@@ -38,6 +38,12 @@ def stop_api():
 def build(name):
     """Build and activate the Conda environment, and install dependencies from requirements.txt"""
     build_env(name)
+    
+@cli.command()
+def clean():
+    """Clean the code using black"""
+    clean_code()
+
 
 if __name__ == '__main__':
     cli()
