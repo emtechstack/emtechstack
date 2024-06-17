@@ -34,7 +34,7 @@ def stop_api():
     stop_api()
 
 @cli.command()
-@click.option('--name', required=True, help='Name of the Conda environment to create and activate')
+@click.option('--name', help='Name of the Conda environment to create and activate')
 def build(name):
     """Build and activate the Conda environment, and install dependencies from requirements.txt"""
     build_env(name)
