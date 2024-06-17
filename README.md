@@ -25,13 +25,17 @@ pip install emtechstack
 Clone a repository and set up the necessary directory structure without `.git` files:
 
 ```sh
-emtechstack init --profile <GitHub-user>/<repo>
+emtechstack init --profile <GitHub-user>/<repo> [--name <custom-dir>]
 ```
 
 For example:
 
 ```sh
+# Initialize with default name
 emtechstack init --profile user/repo
+
+# Initialize with custom name
+emtechstack init --profile user/repo --name custom_dir
 ```
 
 ### Navigate to the Profile Directory
@@ -40,6 +44,12 @@ After initializing the profile, navigate to the profile directory:
 
 ```sh
 cd repo
+```
+
+Or if you specified a custom name:
+
+```sh
+cd custom_dir
 ```
 
 ### Start the Infrastructure
@@ -95,10 +105,11 @@ emtechstack build --name myenv
 Initialize the profile by cloning the repository.
 
 ```
-Usage: emtechstack init --profile <profile-path>
+Usage: emtechstack init --profile <profile-path> [--name <custom-dir>]
 
 Options:
   --profile  Profile path to initialize  [required]
+  --name     Custom directory name for the cloned profile
 ```
 
 ### `emtechstack start_infra`
