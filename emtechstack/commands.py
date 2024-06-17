@@ -5,15 +5,16 @@ import requests
 import zipfile
 from io import BytesIO
 
-def init_profile(profile):
+def init_profile(profile, name=None):
     repo_url = f'https://github.com/{profile}/archive/refs/heads/main.zip'
     response = requests.get(repo_url)
     if response.status_code == 200:
         zip_file = zipfile.ZipFile(BytesIO(response.content))
-        dest_dir = os.path.join(os.getcwd(), profile.split('/')[-1])
+        repo_name = profile.split('/')[-1]
+        dest_dir = os.path.join(os.getcwd(), name if name else repo_name)
         os.makedirs(dest_dir, exist_ok=True)
         for file in zip_file.namelist():
-            if not file.startswith(f'{profile.split("/")[-1]}-main/.git'):
+            if not file.startswith(f'{repo_name}-main/.git'):
                 zip_file.extract(file, dest_dir)
         print(f"Initialized profile at {dest_dir}")
     else:
