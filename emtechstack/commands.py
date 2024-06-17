@@ -67,8 +67,11 @@ def start_api():
 def stop_api():
     print("API stopped (implement actual stop logic as needed)")
 
-def build_env(name):
+def build_env(name=None):
     try:
+        if name is None:
+            name = os.path.basename(os.getcwd())
+        
         # Create the Conda environment
         subprocess.run(['conda', 'create', '-n', name, 'python=3.8', '-y'], check=True)
         print(f"Conda environment '{name}' created")
