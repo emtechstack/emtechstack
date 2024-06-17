@@ -1,5 +1,13 @@
 import click
-from emtechstack.commands import init_profile, start_infra, stop_infra, start_api, stop_api, build_env, clean_code
+from emtechstack.commands import (
+    init_profile, 
+    start_infra as start_infra_function, 
+    stop_infra as stop_infra_function, 
+    start_api as start_api_function, 
+    stop_api as stop_api_function, 
+    build_env, 
+    clean_code
+)
 
 @click.group()
 def cli():
@@ -16,22 +24,22 @@ def init(profile, name):
 @cli.command()
 def start_infra():
     """Start the infrastructure using docker-compose"""
-    start_infra()
+    start_infra_function()
 
 @cli.command()
 def stop_infra():
     """Stop the infrastructure using docker-compose"""
-    stop_infra()
+    stop_infra_function()
 
 @cli.command()
 def start_api():
     """Start the FastAPI application"""
-    start_api()
+    start_api_function()
 
 @cli.command()
 def stop_api():
     """Stop the FastAPI application"""
-    stop_api()
+    stop_api_function()
 
 @cli.command()
 @click.option('--name', help='Name of the Conda environment to create and activate')
