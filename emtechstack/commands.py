@@ -68,17 +68,34 @@ def stop_api():
     print("API stopped (implement actual stop logic as needed)")
 
 def build_env(name):
-    subprocess.run(['conda', 'create', '-n', name, 'python=3.8', '-y'], check=True)
-    print(f"Conda environment '{name}' created")
+    try:
+        # Create the Conda environment
+        subprocess.run(['conda', 'create', '-n', name, 'python=3.8', '-y'], check=True)
+        print(f"Conda environment '{name}' created")
+
+        # Write a temporary shell script to activate the environment and install requirements
+        script_content = f"""
+        #!/bin/bash
+        source $(conda info --base)/etc/profile.d/conda.sh
+        conda activate {name}
+        pip install -r requirements.txt
+        """
+        script_path = 'temp_script.sh'
+        with open(script_path, 'w') as script_file:
+            script_file.write(script_content)
+
+        # Make the script executable and run it
+        subprocess.run(['chmod', '+x', script_path], check=True)
+        subprocess.run(['./' + script_path], check=True)
+        
+        # Clean up the temporary script
+        os.remove(script_path)
+        
+        print(f"Conda environment '{name}' activated and requirements installed")
+        display_services()
     
-    if os.name == 'nt':
-        activate_command = f'conda activate {name} && pip install -r requirements.txt'
-    else:
-        activate_command = f'conda activate {name} && pip install -r requirements.txt'
-    
-    subprocess.run(activate_command, shell=True, check=True, executable="/bin/bash")
-    print(f"Conda environment '{name}' activated and requirements installed")
-    display_services()
+    except subprocess.CalledProcessError as e:
+        print(f"An error occurred while building the environment: {e}")
 
 def display_services():
     try:
