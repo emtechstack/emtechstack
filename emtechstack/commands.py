@@ -54,6 +54,31 @@ def init_profile(profile, name=None):
             shutil.rmtree(temp_dir)
 
 
+def find_and_kill_processes(port='8000'):
+    try:
+        # Identify the platform
+        if os.name == 'nt':  # Windows
+            command = f'netstat -ano | findstr :{port}'
+            processes = subprocess.check_output(command, shell=True).decode()
+            for line in processes.strip().split('\n'):
+                parts = line.split()
+                pid = parts[-1]
+                kill_command = f'taskkill /F /PID {pid}'
+                subprocess.run(kill_command, shell=True, check=True)
+            print(f"Processes running on port {port} have been killed.")
+        else:  # Unix-like systems (Linux, macOS)
+            command = f'lsof -i :{port} | grep LISTEN'
+            processes = subprocess.check_output(command, shell=True).decode()
+            for line in processes.strip().split('\n'):
+                parts = line.split()
+                pid = int(parts[1])
+                os.kill(pid, signal.SIGKILL)
+            print(f"Processes running on port {port} have been killed.")
+    except subprocess.CalledProcessError as e:
+        print(f"No processes found running on port {port}: {e}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        
 def start_infra():
     subprocess.run(['docker-compose', 'up', '-d'], check=True)
     print("Infrastructure started")
