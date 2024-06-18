@@ -350,3 +350,13 @@ def show_version():
         print(colored("EmTechStack package not found. Ensure it is installed properly.", 'red'))
     except Exception as e:
         print(colored(f"An error occurred while retrieving the version: {e}", 'red'))
+    
+def graceful_shutdown():
+    """Gracefully shutdown the services"""
+    stop_api()
+    stop_infra()
+    clean_code()
+    print(f"{colored('EmTechStack services have been stopped gracefully', 'green')}")
+    print(f"1. [{colored('emtechstack stop-api', 'cyan')}]: API has been stopped gracefully.")
+    print(f"2. [{colored('emtechstack stop-infra', 'cyan')}]: Infrastructure has been stopped gracefully.")
+    print(f"3. [{colored('emtechstack clean', 'cyan')}]: Code has been cleaned successfully.")
