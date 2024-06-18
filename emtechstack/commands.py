@@ -8,6 +8,9 @@ from io import BytesIO
 from tabulate import tabulate
 from termcolor import colored
 import pkg_resources  # to retrieve the package version
+import signal
+
+PID_FILE_API = 'api_server.pid'
 
 
 def init_profile(profile, name=None):
@@ -71,11 +74,39 @@ def stop_infra():
         print(colored(f"Output: {e.output}", 'red'))
 
 def start_api(port='8000'):
-    subprocess.run(['uvicorn', 'app.main:app', '--host', '0.0.0.0', '--port', port, '--reload'], check=True)
-    print("API started")
+    try:
+        # Start the API server
+        process = subprocess.Popen(['uvicorn', 'app.main:app', '--host', '0.0.0.0', '--port', port, '--reload'])
+        print("API started")
+        
+        # Save the process ID to a file
+        with open(PID_FILE_API, 'w') as PID_FILE_API:
+            PID_FILE_API.write(str(process.pid))
+    except PermissionError:
+        print("Permission denied: Unable to write PID file.")
 
 def stop_api():
-    print("API stopped (implement actual stop logic as needed)")
+    if os.path.exists(PID_FILE_API):
+        try:
+            with open(PID_FILE_API, 'r') as PID_FILE_API:
+                pid = int(PID_FILE_API.read())
+            
+            try:
+                # Check if the process is running
+                os.kill(pid, 0)
+            except OSError:
+                print("No API process found")
+            else:
+                # If the process is running, terminate it
+                os.kill(pid, signal.SIGTERM)
+                print("API stopped")
+            
+            # Remove the PID file
+            os.remove(PID_FILE_API)
+        except PermissionError:
+            print("Permission denied: Unable to read or remove PID file.")
+    else:
+        print("No PID file found. API might not be running.")
 
 def build_env(name=None):
     try:
