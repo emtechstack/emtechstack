@@ -11,6 +11,7 @@ from emtechstack.commands import (
     update_emtechstack,
     update_requirements as update_requirements_function,
     show_version,
+    graceful_shutdown as graceful_shutdown_function,
 )
 
 
@@ -94,6 +95,12 @@ def update_requirements():
 def version():
     """Show the current version of EmTechStack"""
     show_version()
+    
+
+@cli.command()
+def graceful_shutdown():
+    """Gracefully shutdown the API and Infra application"""
+    graceful_shutdown_function()
     
 if __name__ == "__main__":
     cli()
