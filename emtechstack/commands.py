@@ -103,7 +103,8 @@ PID_FILE = 'api_server.pid'
 def start_api(port='8000'):
     try:
         # Start the API server
-        process = subprocess.Popen(['uvicorn', 'api:app', '--host', '0.0.0.0', '--port', port, '--reload'])
+        # process = subprocess.Popen(['uvicorn', 'api:app', '--host', '0.0.0.0', '--port', port, '--reload'])
+        process = subprocess.Popen(['uvicorn', 'api:app', '--host', '0.0.0.0', '--port', port])
         print("API started")
         
         # Save the process ID to a file
