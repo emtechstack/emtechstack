@@ -206,7 +206,7 @@ def build_env(name=None):
         os.remove(script_path)
         
         # Print the custom message
-        print(f"No please activate your virtual environment by typing {colored('conda activate', 'cyan')} {colored(name, 'green')}.")
+        print(f"Now please activate your virtual environment by typing {colored('conda activate', 'cyan')} {colored(name, 'cyan')}.")
 
     except subprocess.CalledProcessError as e:
         print(f"An error occurred while building the environment: {e}")
