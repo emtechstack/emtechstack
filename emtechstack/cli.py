@@ -32,9 +32,10 @@ def stop_infra():
     stop_infra_function()
 
 @cli.command()
-def start_api():
+@click.option('--port', help='Custom directory name for the cloned profile')
+def start_api(port):
     """Start the FastAPI application"""
-    start_api_function()
+    start_api_function(port)
 
 @cli.command()
 def stop_api():
