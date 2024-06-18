@@ -104,6 +104,8 @@ Before you begin, ensure you have the following requirements installed:
 
 ## Issues and Contributions
 
-If you face any issues or have suggestions, feel free to open a new issue in the [GitHub repository](https://github.com/emtechstack/emtechstack/issues). We welcome contributions! Please star the repo if you find it helpful. ⭐
+If you face any issues or have suggestions, feel free to open a new issue in the [GitHub repository](https://github.com/emtechstack/emtechstack/issues). We welcome contributions! 
+
+⭐ Please star the repo if you find it helpful. ⭐
 
 Thank you for using EmTechStack!
