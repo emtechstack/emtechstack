@@ -10,6 +10,7 @@ from emtechstack.commands import (
     find_and_kill_processes,
     update_emtechstack,
     update_requirements as update_requirements_function,
+    show_version,
 )
 
 
@@ -87,6 +88,12 @@ def upgrade():
 def update_requirements():
     """Update the requirements.txt file with installed package versions"""
     update_requirements_function()
+    
+
+@cli.command()
+def version():
+    """Show the current version of EmTechStack"""
+    show_version()
     
 if __name__ == "__main__":
     cli()
