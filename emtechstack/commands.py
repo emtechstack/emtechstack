@@ -74,7 +74,7 @@ def find_and_kill_processes(port="8000"):
             print(f"Processes running on port {port} have been killed.")
         
         else:  # Unix-like systems (Linux, macOS)
-            command = f"lsof -i :{port} | grep LISTEN"
+            command = f"lsof -i :{port}"
             processes = subprocess.check_output(command, shell=True).decode()
             killed_pids = set()
             for line in processes.strip().split("\n"):
@@ -98,7 +98,6 @@ def find_and_kill_processes(port="8000"):
         print(f"No processes found running on port {port}: {e}")
     except Exception as e:
         print(f"An error occurred: {e}")
-
 
 def start_infra():
     subprocess.run(["docker-compose", "up", "-d"], check=True)
