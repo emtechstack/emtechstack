@@ -7,7 +7,8 @@ from emtechstack.commands import (
     stop_api as stop_api_function, 
     build_env, 
     clean_code,
-    find_and_kill_processes
+    find_and_kill_processes,
+    update_emtechstack,
 )
 
 @click.group()
@@ -59,6 +60,11 @@ def clean():
 def clean_port(port):
     """Clean the port"""
     find_and_kill_processes(port)
-
+    
+@cli.command()
+def update():
+    """Update the emtechstack package"""
+    update_emtechstack()
+    
 if __name__ == '__main__':
     cli()
