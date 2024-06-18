@@ -278,6 +278,41 @@ def display_services():
             )
         )
 
+def update_requirements():
+    try:
+        # Read the existing requirements.txt file
+        with open('requirements.txt', 'r') as file:
+            requirements = file.readlines()
+
+        # Clean and sort the requirements
+        requirements = [req.strip() for req in requirements if req.strip()]
+        requirements.sort()
+
+        # Get the installed versions
+        installed_packages = {pkg.key: pkg.version for pkg in pkg_resources.working_set}
+
+        # Create a list to store updated requirements
+        updated_requirements = []
+
+        for req in requirements:
+            package_name = req.split('==')[0].strip()
+            if package_name in installed_packages:
+                version = installed_packages[package_name]
+                updated_requirements.append(f"{package_name}=={version}")
+            else:
+                updated_requirements.append(req)
+
+        # Sort the updated requirements
+        updated_requirements.sort()
+
+        # Write the updated requirements back to requirements.txt
+        with open('requirements.txt', 'w') as file:
+            file.write("\n".join(updated_requirements) + "\n")
+
+        print("requirements.txt has been updated with installed package versions.")
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 def clean_code():
     subprocess.run(["black", "."], check=True)
