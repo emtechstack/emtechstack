@@ -60,18 +60,18 @@ def start_infra():
 
 def stop_infra():
     try:
-        subprocess.run(['docker-compose', 'up', '-d'], check=True)
-        print("Infrastructure started")
-        display_services()
+        subprocess.run(['docker-compose', 'down'], check=True)
+        # display_services()
+        print("Infrastructure stopped")
+        
     except subprocess.CalledProcessError as e:
         print(colored(f"An error occurred while starting the infrastructure: {e}", 'red'))
         print(colored(f"Command: {e.cmd}", 'red'))
         print(colored(f"Return code: {e.returncode}", 'red'))
         print(colored(f"Output: {e.output}", 'red'))
-    print("Infrastructure stopped")
 
-def start_api():
-    subprocess.run(['uvicorn', 'app.main:app', '--host', '0.0.0.0', '--port', '8000', '--reload'], check=True)
+def start_api(port='8000'):
+    subprocess.run(['uvicorn', 'app.main:app', '--host', '0.0.0.0', '--port', port, '--reload'], check=True)
     print("API started")
 
 def stop_api():
