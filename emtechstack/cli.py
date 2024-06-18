@@ -102,5 +102,11 @@ def graceful_shutdown():
     """Gracefully shutdown the API and Infra application"""
     graceful_shutdown_function()
     
+    
+@cli.command()
+def goodnight():
+    """Gracefully shutdown the API and Infra application"""
+    graceful_shutdown_function()
+    
 if __name__ == "__main__":
     cli()
