@@ -12,9 +12,7 @@ import signal
 
 
 def init_profile(profile, name=None):
-    repo_url = (
-        "https://github.com/emtechstack/infra-profiles/archive/refs/heads/main.zip"
-    )
+    repo_url = "https://github.com/emtechstack/infra-profiles/archive/refs/heads/main.zip"
     temp_dir = "emtechstack_temp_profile_download"
 
     try:
@@ -28,9 +26,7 @@ def init_profile(profile, name=None):
         zip_file = zipfile.ZipFile(BytesIO(response.content))
         zip_file.extractall(temp_dir)
 
-        profile_path = os.path.join(
-            temp_dir, "infra-profiles-main", "profiles", profile
-        )
+        profile_path = os.path.join(temp_dir, "infra-profiles-main", "profiles", profile)
         if not os.path.exists(profile_path):
             print(f"Profile '{profile}' not found in the repository.")
             return
@@ -42,11 +38,17 @@ def init_profile(profile, name=None):
         if not os.path.exists(dest_dir):
             os.makedirs(dest_dir)
 
-        # Copy all files from the profile directory to the destination directory
+        # Copy all files and directories from the profile directory to the destination directory
         for root, dirs, files in os.walk(profile_path):
+            relative_path = os.path.relpath(root, profile_path)
+            dest_path = os.path.join(dest_dir, relative_path)
+            
+            if not os.path.exists(dest_path):
+                os.makedirs(dest_path)
+            
             for file in files:
                 src_file = os.path.join(root, file)
-                shutil.move(src_file, dest_dir)
+                shutil.copy(src_file, dest_path)
 
         # Step 5: Clean up the downloaded zip and extracted files
         shutil.rmtree(temp_dir)
