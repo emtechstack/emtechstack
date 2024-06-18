@@ -171,7 +171,7 @@ def build_env(name=None):
         os.remove(script_path)
         
         print(f"Conda environment '{name}' activated and requirements installed")
-        display_services()
+        # display_services()
     
     except subprocess.CalledProcessError as e:
         print(f"An error occurred while building the environment: {e}")
