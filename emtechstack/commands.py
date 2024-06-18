@@ -160,9 +160,9 @@ def build_env(name=None):
     try:
         if name is None:
             name = os.path.basename(os.getcwd())
-
+        
         # Create the Conda environment
-        subprocess.run(["conda", "create", "-n", name, "python=3.8", "-y"], check=True)
+        subprocess.run(['conda', 'create', '-n', name, 'python=3.8', '-y'], check=True)
         print(f"Conda environment '{name}' created")
 
         # Write a temporary shell script to activate the environment and install requirements
@@ -172,24 +172,25 @@ def build_env(name=None):
         conda activate {name}
         pip install -r requirements.txt
         """
-        script_path = "temp_script.sh"
-        with open(script_path, "w") as script_file:
+        script_path = 'temp_script.sh'
+        with open(script_path, 'w') as script_file:
             script_file.write(script_content)
 
         # Make the script executable
         os.chmod(script_path, 0o775)
 
         # Run the script using /bin/bash
-        subprocess.run(["/bin/bash", script_path], check=True)
-
+        subprocess.run(['/bin/bash', script_path], check=True)
+        
         # Clean up the temporary script
         os.remove(script_path)
-
-        print(f"Conda environment '{name}' activated and requirements installed")
-        # display_services()
+        
+        # Print the custom message
+        print(f"No please activate your virtual environment by typing {colored('conda activate', 'cyan')} {colored(name, 'green')}.")
 
     except subprocess.CalledProcessError as e:
         print(f"An error occurred while building the environment: {e}")
+
 
 
 def update_emtechstack():
