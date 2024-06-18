@@ -72,6 +72,12 @@ Before you begin, ensure you have the following requirements installed:
     emtechstack build --name myenv
     ```
 
+    Then activate the conda env which built automatically for you for start developing. The env is ready to used and equipped with necessary libraries.
+
+    ```sh
+    conda activate myenv
+    ```
+
 5. **Start the Infrastructure**
 
     ```sh
