@@ -48,7 +48,7 @@ def init_profile(profile, name=None):
         # Step 5: Clean up the downloaded zip and extracted files
         shutil.rmtree(temp_dir)
         print(f"Initialized profile at {dest_dir}")
-        print(f"Go to the dit by {colored('cd', 'cyan')} {colored(repo_name, 'green')}")
+        print(f"Go to the dir by {colored('cd', 'cyan')} {colored(repo_name, 'green')}")
         print(f"Then after that you can start building the profile by typing {colored('emtechstack build', 'green')} or {colored('emtechstack build --name your_env_name', 'green')}")
 
     except Exception as e:
