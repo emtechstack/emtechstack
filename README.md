@@ -53,31 +53,7 @@ Before you begin, ensure you have the following requirements installed:
     cd custom-dir
     ```
 
-4. **Start the Infrastructure**
-
-    ```sh
-    emtechstack start_infra
-    ```
-
-5. **Stop the Infrastructure**
-
-    ```sh
-    emtechstack stop_infra
-    ```
-
-6. **Start the API**
-
-    ```sh
-    emtechstack start_api --port 8000
-    ```
-
-7. **Stop the API**
-
-    ```sh
-    emtechstack stop_api
-    ```
-
-8. **Build and Activate a Conda Environment**
+4. **Build and Activate a Conda Environment**
 
     ```sh
     emtechstack build --name <env-name>
@@ -89,6 +65,30 @@ Before you begin, ensure you have the following requirements installed:
     emtechstack build --name myenv
     ```
 
+5. **Start the Infrastructure**
+
+    ```sh
+    emtechstack start_infra
+    ```
+
+6. **Stop the Infrastructure**
+
+    ```sh
+    emtechstack stop_infra
+    ```
+
+7. **Start the API**
+
+    ```sh
+    emtechstack start_api --port 8000
+    ```
+
+8. **Stop the API**
+
+    ```sh
+    emtechstack stop_api
+    ```
+
 9. **Clean the Code**
 
     ```sh
@@ -96,6 +96,7 @@ Before you begin, ensure you have the following requirements installed:
     ```
 
 10. **Update EmTechStack**
+    Make sure you have the latest version of the CLI tool before start your day ☕☕
 
     ```sh
     emtechstack update
@@ -103,6 +104,6 @@ Before you begin, ensure you have the following requirements installed:
 
 ## Issues and Contributions
 
-If you face any issues or have suggestions, feel free to open a new issue in the [GitHub repository](https://github.com/your-repo/emtechstack/issues). We welcome contributions! Please star the repo if you find it helpful. ⭐
+If you face any issues or have suggestions, feel free to open a new issue in the [GitHub repository](https://github.com/emtechstack/emtechstack/issues). We welcome contributions! Please star the repo if you find it helpful. ⭐
 
 Thank you for using EmTechStack!
