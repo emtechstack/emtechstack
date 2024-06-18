@@ -52,8 +52,8 @@ def init_profile(profile, name=None):
         # Step 5: Clean up the downloaded zip and extracted files
         shutil.rmtree(temp_dir)
         print(f"Initialized profile at {dest_dir}")
-        print(f"Go to the dir by {colored('cd', 'cyan')} {colored(repo_name, 'cyan')}")
-        print(f"Then after that you can start building the profile by typing {colored('emtechstack build', 'green')} or {colored('emtechstack build --name your_env_name', 'green')}")
+        print(f"1. Go to the dir by {colored('cd', 'cyan')} {colored(repo_name, 'cyan')}")
+        print(f"2. Then after that you can start building the profile by typing {colored('emtechstack build', 'green')} or {colored('emtechstack build --name your_env_name', 'green')}")
 
     except Exception as e:
         print(f"An error occurred: {e}")
@@ -206,9 +206,9 @@ def build_env(name=None):
         os.remove(script_path)
         
         # Print the custom message
-        print(f"Now please activate your virtual environment by typing {colored('conda activate', 'cyan')} {colored(name, 'cyan')}.")
-        print(f"For starting the infra {colored('emtechstack start-infra', 'green')}, and for stopping the infra {colored('emtechstack stop-infra', 'green')}.")
-        print(f"For starting the api {colored('emtechstack start-api', 'green')}, and for stopping the api {colored('emtechstack stop-api', 'green')}.")
+        print(f"1. Now please activate your virtual environment by typing {colored('conda activate', 'cyan')} {colored(name, 'cyan')}.")
+        print(f"2. For starting the infra {colored('emtechstack start-infra', 'green')}, and for stopping the infra {colored('emtechstack stop-infra', 'green')}.")
+        print(f"3. For starting the api {colored('emtechstack start-api', 'green')}, and for stopping the api {colored('emtechstack stop-api', 'green')}.")
 
     except subprocess.CalledProcessError as e:
         print(f"An error occurred while building the environment: {e}")
