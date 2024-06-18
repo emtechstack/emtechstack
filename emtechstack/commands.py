@@ -207,6 +207,8 @@ def build_env(name=None):
         
         # Print the custom message
         print(f"Now please activate your virtual environment by typing {colored('conda activate', 'cyan')} {colored(name, 'cyan')}.")
+        print(f"For starting the infra {colored('emtechstack start-infra', 'green')}, and for stopping the infra {colored('emtechstack stop-infra', 'green')}.")
+        print(f"For starting the api {colored('emtechstack start-api', 'green')}, and for stopping the api {colored('emtechstack stop-api', 'green')}.")
 
     except subprocess.CalledProcessError as e:
         print(f"An error occurred while building the environment: {e}")
