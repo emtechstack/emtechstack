@@ -10,8 +10,6 @@ from termcolor import colored
 import pkg_resources  # to retrieve the package version
 import signal
 
-PID_FILE_API = 'api_server.pid'
-
 
 def init_profile(profile, name=None):
     repo_url = 'https://github.com/emtechstack/infra-profiles/archive/refs/heads/main.zip'
@@ -73,6 +71,8 @@ def stop_infra():
         print(colored(f"Return code: {e.returncode}", 'red'))
         print(colored(f"Output: {e.output}", 'red'))
 
+PID_FILE = 'api_server.pid'
+
 def start_api(port='8000'):
     try:
         # Start the API server
@@ -80,16 +80,18 @@ def start_api(port='8000'):
         print("API started")
         
         # Save the process ID to a file
-        with open(PID_FILE_API, 'w') as PID_FILE_API:
-            PID_FILE_API.write(str(process.pid))
+        with open(PID_FILE, 'w') as pid_file:
+            pid_file.write(str(process.pid))
     except PermissionError:
         print("Permission denied: Unable to write PID file.")
+    except Exception as e:
+        print(f"An error occurred while starting the API: {e}")
 
 def stop_api():
-    if os.path.exists(PID_FILE_API):
+    if os.path.exists(PID_FILE):
         try:
-            with open(PID_FILE_API, 'r') as PID_FILE_API:
-                pid = int(PID_FILE_API.read())
+            with open(PID_FILE, 'r') as pid_file:
+                pid = int(pid_file.read())
             
             try:
                 # Check if the process is running
@@ -102,11 +104,14 @@ def stop_api():
                 print("API stopped")
             
             # Remove the PID file
-            os.remove(PID_FILE_API)
+            os.remove(PID_FILE)
         except PermissionError:
             print("Permission denied: Unable to read or remove PID file.")
+        except Exception as e:
+            print(f"An error occurred while stopping the API: {e}")
     else:
         print("No PID file found. API might not be running.")
+
 
 def build_env(name=None):
     try:
