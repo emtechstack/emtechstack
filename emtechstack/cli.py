@@ -6,7 +6,8 @@ from emtechstack.commands import (
     start_api as start_api_function, 
     stop_api as stop_api_function, 
     build_env, 
-    clean_code
+    clean_code,
+    find_and_kill_processes
 )
 
 @click.group()
@@ -53,6 +54,11 @@ def clean():
     """Clean the code using black"""
     clean_code()
 
+@cli.command()
+@click.option('--port', required=True, help='Port to clean')
+def clean_port(port):
+    """Clean the port"""
+    find_and_kill_processes(port)
 
 if __name__ == '__main__':
     cli()
