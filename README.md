@@ -25,8 +25,15 @@ Before you begin, ensure you have the following requirements installed:
 1. **Install EmTechStack**
 
     ```sh
-    pip install emtechstack
+    pip install --upgrade emtechstack
     ```
+
+    If you have already installed the cli please make sure its updated by:
+
+    ```sh
+    emtechstack update
+    ```
+
 
 2. **Initialize a Profile**
 
@@ -68,25 +75,25 @@ Before you begin, ensure you have the following requirements installed:
 5. **Start the Infrastructure**
 
     ```sh
-    emtechstack start_infra
+    emtechstack start-infra
     ```
 
 6. **Stop the Infrastructure**
 
     ```sh
-    emtechstack stop_infra
+    emtechstack stop-infra
     ```
 
 7. **Start the API**
 
     ```sh
-    emtechstack start_api --port 8000
+    emtechstack start-api --port 8000
     ```
 
 8. **Stop the API**
 
     ```sh
-    emtechstack stop_api
+    emtechstack stop-api
     ```
 
 9. **Clean the Code**
@@ -104,8 +111,10 @@ Before you begin, ensure you have the following requirements installed:
 
 ## Issues and Contributions
 
-If you face any issues or have suggestions, feel free to open a new issue in the [GitHub repository](https://github.com/emtechstack/emtechstack/issues). We welcome contributions! 
+If you face any issues or have suggestions, feel free to open a new issue in the [GitHub repository](https://github.com/emtechstack/emtechstack/issues). We welcome contributions!
 
 ⭐ Please star the repo if you find it helpful. ⭐
+
+Built with ❤️ by Dev for Devs
 
 Thank you for using EmTechStack!
