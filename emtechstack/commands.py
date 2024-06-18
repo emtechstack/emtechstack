@@ -176,6 +176,24 @@ def build_env(name=None):
     except subprocess.CalledProcessError as e:
         print(f"An error occurred while building the environment: {e}")
 
+def update_emtechstack():
+    try:
+        # Get the current version
+        current_version = pkg_resources.get_distribution('emtechstack').version
+
+        # Upgrade the package
+        subprocess.run(['pip', 'install', '--upgrade', 'emtechstack'], check=True)
+
+        # Get the new version
+        new_version = pkg_resources.get_distribution('emtechstack').version
+
+        # Print the update message
+        if current_version != new_version:
+            print(colored(f"emtechstack has been updated: version {current_version} -> {new_version} ✔", 'green'))
+        else:
+            print(colored(f"emtechstack is already at the latest version: {new_version} ✔", 'green'))
+    except Exception as e:
+        print(colored(f"An error occurred while updating emtechstack: {e}", 'red'))
 
 def display_services():
     try:
