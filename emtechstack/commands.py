@@ -321,3 +321,12 @@ def update_requirements():
 
 def clean_code():
     subprocess.run(["black", "."], check=True)
+    
+def show_version():
+    try:
+        version = pkg_resources.get_distribution('emtechstack').version
+        print(colored(f"EmTechStack version: {version}", 'green'))
+    except pkg_resources.DistributionNotFound:
+        print(colored("EmTechStack package not found. Ensure it is installed properly.", 'red'))
+    except Exception as e:
+        print(colored(f"An error occurred while retrieving the version: {e}", 'red'))
