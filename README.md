@@ -115,6 +115,28 @@ Before you begin, ensure you have the following requirements installed:
     emtechstack update
     ```
 
+
+## Command Reference
+
+| Command                        | Description                                                         |
+|--------------------------------|---------------------------------------------------------------------|
+| `emtechstack build`            | Build and activate the Conda environment, and...                    |
+| `emtechstack clean`            | Clean the code using black                                          |
+| `emtechstack clean-port`       | Clean the port                                                      |
+| `emtechstack goodnight`        | Gracefully shutdown the API and Infra application                   |
+| `emtechstack graceful-shutdown`| Gracefully shutdown the API and Infra application                   |
+| `emtechstack init`             | Initialize the profile by cloning the repo                          |
+| `emtechstack start-api`        | Start the FastAPI application                                       |
+| `emtechstack start-infra`      | Start the infrastructure using docker-compose                       |
+| `emtechstack stop-api`         | Stop the FastAPI application                                        |
+| `emtechstack stop-infra`       | Stop the infrastructure using docker-compose                        |
+| `emtechstack update`           | Update the emtechstack package                                      |
+| `emtechstack update-requirements`| Update the requirements.txt file with installed dependencies       |
+| `emtechstack upgrade`          | Update the emtechstack package                                      |
+| `emtechstack version`          | Show the current version of EmTechStack                             |
+
+
+
 ## Issues and Contributions
 
 If you face any issues or have suggestions, feel free to open a new issue in the [GitHub repository](https://github.com/emtechstack/emtechstack/issues). We welcome contributions!
