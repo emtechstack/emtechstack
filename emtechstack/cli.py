@@ -76,6 +76,11 @@ def update():
     """Update the emtechstack package"""
     update_emtechstack()
 
+@cli.command()
+def upgrade():
+    """Update the emtechstack package"""
+    update_emtechstack()
+
 
 if __name__ == "__main__":
     cli()
