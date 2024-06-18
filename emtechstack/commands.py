@@ -7,6 +7,10 @@ import pkg_resources  # to retrieve the package version
 import signal, platform
 
 def init_profile(profile, name=None):
+    
+    print(f'Updating the cli')
+    update_emtechstack()
+    
     repo_url = "https://github.com/emtechstack/infra-profiles/archive/refs/heads/main.zip"
     temp_dir = "emtechstack_temp_profile_download"
 
