@@ -78,12 +78,15 @@ def find_and_kill_processes(port="8000"):
             processes = subprocess.check_output(command, shell=True).decode()
             killed_pids = set()
             for line in processes.strip().split("\n"):
-                if line:
+                if line and line[0].isdigit():  # Ensure line is not a header
                     parts = line.split()
-                    pid = int(parts[1])
-                    if pid not in killed_pids:
-                        os.kill(pid, signal.SIGKILL)
-                        killed_pids.add(pid)
+                    try:
+                        pid = int(parts[1])
+                        if pid not in killed_pids:
+                            os.kill(pid, signal.SIGKILL)
+                            killed_pids.add(pid)
+                    except ValueError:
+                        print(f"Skipping line due to invalid PID: {line}")
             print(f"Processes running on port {port} have been killed.")
             
             # Additionally clear any lingering connections on Linux
