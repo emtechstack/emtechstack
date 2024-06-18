@@ -1,164 +1,108 @@
 
-# Emtechstack
+# EmTechStack
 
-Emtechstack is a CLI tool designed to manage Docker-based development environments with Conda support. It allows you to initialize profiles, start and stop infrastructure, and manage Conda environments effortlessly.
+Welcome to EmTechStack! 🎉 EmTechStack is a CLI tool designed to streamline the setup and management of your AI development environments. It allows you to easily manage Docker-based infrastructures, create and activate Conda environments, and handle your FastAPI applications.
 
 ## Features
 
-- **Initialize Profiles**: Clone a repository and set up the necessary directory structure without `.git` files.
-- **Manage Docker Infrastructure**: Start and stop Docker containers using `docker-compose`.
-- **Manage API**: Start and stop a FastAPI application.
-- **Build Conda Environments**: Create and activate Conda environments, and install dependencies from `requirements.txt`.
+- 🚀 **Initialize Profiles**: Clone a profile from the repository and set up the necessary directory structure.
+- 🐳 **Manage Docker Infrastructure**: Start and stop Docker containers using `docker-compose`.
+- ⚙️ **Manage API**: Start and stop a FastAPI application.
+- 📦 **Build Conda Environments**: Create and activate Conda environments, and install dependencies from `requirements.txt`.
+- 🧹 **Clean Code**: Use `black` to clean the codebase.
+- 🔄 **Update EmTechStack**: Easily update the EmTechStack package to the latest version.
 
 ## Installation
 
-You can install Emtechstack using pip:
+Before you begin, ensure you have the following requirements installed:
 
-```sh
-pip install emtechstack
-```
+1. [Python 3.10+](https://www.python.org/downloads/)
+2. [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
+3. [Docker](https://docs.docker.com/get-docker/)
 
-## Usage
+### Step-by-Step Guide
 
-### Initialize a Profile
+1. **Install EmTechStack**
 
-Clone a repository and set up the necessary directory structure without `.git` files:
+    ```sh
+    pip install emtechstack
+    ```
 
-```sh
-emtechstack init --profile <GitHub-user>/<repo> [--name <custom-dir>]
-```
+2. **Initialize a Profile**
 
-For example:
+    ```sh
+    emtechstack init --profile <profile-name> [--name <custom-dir>]
+    ```
 
-```sh
-# Initialize with default name
-emtechstack init --profile user/repo
+    Example:
 
-# Initialize with custom name
-emtechstack init --profile user/repo --name custom_dir
-```
+    ```sh
+    emtechstack init --profile profile-name
+    emtechstack init --profile profile-name --name custom-dir
+    ```
 
-### Navigate to the Profile Directory
+3. **Navigate to the Profile Directory**
 
-After initializing the profile, navigate to the profile directory:
+    ```sh
+    cd profile-name
+    ```
 
-```sh
-cd repo
-```
+    Or if you specified a custom name:
 
-Or if you specified a custom name:
+    ```sh
+    cd custom-dir
+    ```
 
-```sh
-cd custom_dir
-```
+4. **Start the Infrastructure**
 
-### Start the Infrastructure
+    ```sh
+    emtechstack start_infra
+    ```
 
-Start the infrastructure using Docker Compose:
+5. **Stop the Infrastructure**
 
-```sh
-emtechstack start_infra
-```
+    ```sh
+    emtechstack stop_infra
+    ```
 
-### Stop the Infrastructure
+6. **Start the API**
 
-Stop the infrastructure using Docker Compose:
+    ```sh
+    emtechstack start_api --port 8000
+    ```
 
-```sh
-emtechstack stop_infra
-```
+7. **Stop the API**
 
-### Start the API
+    ```sh
+    emtechstack stop_api
+    ```
 
-Start the FastAPI application:
+8. **Build and Activate a Conda Environment**
 
-```sh
-emtechstack start_api
-```
+    ```sh
+    emtechstack build --name <env-name>
+    ```
 
-### Stop the API
+    Example:
 
-Stop the FastAPI application:
+    ```sh
+    emtechstack build --name myenv
+    ```
 
-```sh
-emtechstack stop_api
-```
+9. **Clean the Code**
 
-### Build and Activate a Conda Environment
+    ```sh
+    emtechstack clean
+    ```
 
-Create and activate a Conda environment, and install dependencies from `requirements.txt`:
+10. **Update EmTechStack**
 
-```sh
-emtechstack build --name <env-name>
-```
+    ```sh
+    emtechstack update
+    ```
 
-For example:
+## Issues and Contributions
 
-```sh
-emtechstack build --name myenv
-```
+If you face any issues or have suggestions, feel free to open a new issue in the [GitHub repository](https://github.com/your-repo/emtechstack/issues). We welcome contributions! Please star the repo if you find it helpful. ⭐
 
-## Commands and Options
-
-### `emtechstack init`
-
-Initialize the profile by cloning the repository.
-
-```
-Usage: emtechstack init --profile <profile-path> [--name <custom-dir>]
-
-Options:
-  --profile  Profile path to initialize  [required]
-  --name     Custom directory name for the cloned profile
-```
-
-### `emtechstack start_infra`
-
-Start the infrastructure using `docker-compose up -d`.
-
-```
-Usage: emtechstack start_infra
-```
-
-### `emtechstack stop_infra`
-
-Stop the infrastructure using `docker-compose down`.
-
-```
-Usage: emtechstack stop_infra
-```
-
-### `emtechstack start_api`
-
-Start the FastAPI application.
-
-```
-Usage: emtechstack start_api
-```
-
-### `emtechstack stop_api`
-
-Stop the FastAPI application.
-
-```
-Usage: emtechstack stop_api
-```
-
-### `emtechstack build`
-
-Build and activate the Conda environment, and install dependencies from `requirements.txt`.
-
-```
-Usage: emtechstack build --name <env-name>
-
-Options:
-  --name  Name of the Conda environment to create and activate  [required]
-```
-
-## Contributing
-
-If you would like to contribute to Emtechstack, please submit a pull request or open an issue on GitHub.
-
-## License
-
-This project is licensed under the MIT License.
+Thank you for using EmTechStack!
