@@ -193,29 +193,44 @@ def build_env(name=None):
 def update_emtechstack():
     try:
         # Get the current version
-        current_version = pkg_resources.get_distribution('emtechstack').version
+        current_version = pkg_resources.get_distribution("emtechstack").version
 
         # Upgrade the package
-        result = subprocess.run(['pip', 'install', '--upgrade', 'emtechstack'], check=True, capture_output=True, text=True)
+        result = subprocess.run(
+            ["pip", "install", "--upgrade", "emtechstack"],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
         # print(result.stdout)  # Optional: Print the output of the command
 
         # Reload the package metadata
         pkg_resources.working_set = pkg_resources.WorkingSet()
 
         # Get the new version
-        new_version = pkg_resources.get_distribution('emtechstack').version
+        new_version = pkg_resources.get_distribution("emtechstack").version
 
         # Print the update message
         if current_version != new_version:
-            print(colored(f"emtechstack has been updated: version {current_version} -> {new_version} ✔", 'green'))
+            print(
+                colored(
+                    f"emtechstack has been updated: version {current_version} -> {new_version} ✔",
+                    "green",
+                )
+            )
         else:
-            print(colored(f"emtechstack is already at the latest version: {new_version} ✔", 'green'))
+            print(
+                colored(
+                    f"emtechstack is already at the latest version: {new_version} ✔",
+                    "green",
+                )
+            )
     except subprocess.CalledProcessError as e:
-        print(colored(f"An error occurred while updating emtechstack: {e}", 'red'))
-        print(colored(e.stdout, 'red'))
-        print(colored(e.stderr, 'red'))
+        print(colored(f"An error occurred while updating emtechstack: {e}", "red"))
+        print(colored(e.stdout, "red"))
+        print(colored(e.stderr, "red"))
     except Exception as e:
-        print(colored(f"An error occurred: {e}", 'red'))
+        print(colored(f"An error occurred: {e}", "red"))
 
 
 def display_services():
