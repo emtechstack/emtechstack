@@ -1,15 +1,10 @@
-import os
-import shutil
-import subprocess
-import requests
-import zipfile
-import yaml
+import os, subprocess, shutil
+import zipfile, yaml, requests
 from io import BytesIO
 from tabulate import tabulate
 from termcolor import colored
 import pkg_resources  # to retrieve the package version
-import signal
-
+import signal, platform
 
 def init_profile(profile, name=None):
     repo_url = "https://github.com/emtechstack/infra-profiles/archive/refs/heads/main.zip"
@@ -62,28 +57,43 @@ def init_profile(profile, name=None):
 
 def find_and_kill_processes(port="8000"):
     try:
-        # Identify the platform
-        if os.name == "nt":  # Windows
+        system = platform.system()
+        
+        if system == "Windows":
             command = f"netstat -ano | findstr :{port}"
             processes = subprocess.check_output(command, shell=True).decode()
+            killed_pids = set()
             for line in processes.strip().split("\n"):
                 if line:
                     parts = line.split()
                     pid = parts[-1]
-                    kill_command = f"taskkill /F /PID {pid}"
-                    subprocess.run(kill_command, shell=True, check=True)
+                    if pid.isdigit() and pid not in killed_pids:
+                        kill_command = f"taskkill /F /PID {pid}"
+                        subprocess.run(kill_command, shell=True, check=True)
+                        killed_pids.add(pid)
             print(f"Processes running on port {port} have been killed.")
+        
         else:  # Unix-like systems (Linux, macOS)
-            # command = f"lsof -i :{port} | grep LISTEN"
-            #TODO: Need more testing on this
-            command = f"lsof -i :{port}"
+            command = f"lsof -i :{port} | grep LISTEN"
             processes = subprocess.check_output(command, shell=True).decode()
+            killed_pids = set()
             for line in processes.strip().split("\n"):
                 if line:
                     parts = line.split()
                     pid = int(parts[1])
-                    os.kill(pid, signal.SIGKILL)
+                    if pid not in killed_pids:
+                        os.kill(pid, signal.SIGKILL)
+                        killed_pids.add(pid)
             print(f"Processes running on port {port} have been killed.")
+            
+            # Additionally clear any lingering connections on Linux
+            if system == "Linux":
+                subprocess.run(f"iptables -A INPUT -p tcp --dport {port} -j DROP", shell=True)
+                subprocess.run(f"iptables -A OUTPUT -p tcp --sport {port} -j DROP", shell=True)
+                subprocess.run(f"iptables -D INPUT -p tcp --dport {port} -j DROP", shell=True)
+                subprocess.run(f"iptables -D OUTPUT -p tcp --sport {port} -j DROP", shell=True)
+                print(f"Port {port} has been fully cleaned.")
+        
     except subprocess.CalledProcessError as e:
         print(f"No processes found running on port {port}: {e}")
     except Exception as e:
