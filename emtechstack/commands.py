@@ -74,7 +74,9 @@ def find_and_kill_processes(port="8000"):
                     subprocess.run(kill_command, shell=True, check=True)
             print(f"Processes running on port {port} have been killed.")
         else:  # Unix-like systems (Linux, macOS)
-            command = f"lsof -i :{port} | grep LISTEN"
+            # command = f"lsof -i :{port} | grep LISTEN"
+            #TODO: Need more testing on this
+            command = f"lsof -i :{port}"
             processes = subprocess.check_output(command, shell=True).decode()
             for line in processes.strip().split("\n"):
                 if line:
