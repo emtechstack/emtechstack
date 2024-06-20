@@ -139,7 +139,7 @@ def start_api(port="8000"):
         process = subprocess.Popen(
             ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", port]
         )
-        print("API started")
+        print(f"API started. You can access it at {colored(f'http://localhost:{port}', 'cyan')} or {colored(f'http://0.0.0.0:{port}', 'cyan')}")
 
         # Save the process ID to a file
         with open(PID_FILE, "w") as pid_file:
@@ -182,7 +182,7 @@ def build_env(name=None):
             name = os.path.basename(os.getcwd())
         
         # Create the Conda environment
-        subprocess.run(['conda', 'create', '-n', name, 'python=3.8', '-y'], check=True)
+        subprocess.run(['conda', 'create', '-n', name, 'python=3.10', '-y'], check=True)
         print(f"Conda environment '{name}' created")
 
         # Write a temporary shell script to activate the environment and install requirements

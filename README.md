@@ -63,20 +63,22 @@ Before you begin, ensure you have the following requirements installed:
 4. **Build and Activate a Conda Environment**
 
     ```sh
-    emtechstack build --name <env-name>
+    conda create -n myenv python=3.10
     ```
 
-    Example:
-
-    ```sh
-    emtechstack build --name myenv
-    ```
-
-    Then activate the conda env which built automatically for you for start developing. The env is ready to used and equipped with necessary libraries.
+    Activate the `conda` environment:
 
     ```sh
     conda activate myenv
     ```
+
+    Install the libraries:
+
+
+    ```sh
+    pip install -r requirements.txt
+    ```
+
 
 5. **Start the Infrastructure**
 
