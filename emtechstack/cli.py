@@ -119,8 +119,8 @@ def init_push(repository, branch, message):
     """Gracefully shutdown the API and Infra application"""
     push_to_new_repo(
         repo_url=repository,
-        branch=branch,
-        commit_message=message,
+        branch_name=branch,
+        first_commit=message,
     )
     
 if __name__ == "__main__":
