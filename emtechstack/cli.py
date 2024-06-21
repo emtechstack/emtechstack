@@ -12,6 +12,7 @@ from emtechstack.commands import (
     update_requirements as update_requirements_function,
     show_version,
     graceful_shutdown as graceful_shutdown_function,
+    push_to_new_repo
 )
 
 
@@ -107,6 +108,20 @@ def graceful_shutdown():
 def goodnight():
     """Gracefully shutdown the API and Infra application"""
     graceful_shutdown_function()
+    graceful_shutdown_function()
+    
+    
+@cli.command()
+@click.option("--repository", required=True, help="The repository URL that you want to push for the first time (initial commit)")
+@click.option("--branch", required=True, help="The branch name to push to (main or master or ...)")
+@click.option("--message", default="feat: Initial Commit From EmTechStack", help="The commit message for the initial commit")
+def init_push(repository, branch, message):
+    """Gracefully shutdown the API and Infra application"""
+    push_to_new_repo(
+        repo_url=repository,
+        branch=branch,
+        commit_message=message,
+    )
     
 if __name__ == "__main__":
     cli()
