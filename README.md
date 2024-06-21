@@ -11,6 +11,14 @@ Welcome to EmTechStack! 🎉 EmTechStack is a CLI tool designed to streamline th
 - 📦 **Build Conda Environments**: Create and activate Conda environments, and install dependencies from `requirements.txt`.
 - 🧹 **Clean Code**: Use `black` to clean the codebase.
 - 🔄 **Update EmTechStack**: Easily update the EmTechStack package to the latest version.
+- 🎉 **Libraries And Frameworks**: You can find proper libraries and infra-profile as below
+
+| Profile Name              | Ingredients                            | Status     | Command to Run Profile                           |
+|---------------------------|----------------------------------------|------------|-------------------------------------------------|
+| [postgresql-qdrant-redis](https://github.com/emtechstack/infra-profiles/tree/main/profiles/postgresql-qdrant-redis)   | PostgreSQL, Qdrant Vector Database, Redis | Live       | `emtechstack init --profile postgresql-qdrant-redis --name sample_app` |
+
+
+Choose the profile that aligns with your project requirements and explore its directory for more information.
 
 ## Installation
 
