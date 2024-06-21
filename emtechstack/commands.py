@@ -360,3 +360,7 @@ def graceful_shutdown():
     print(f"1. [{colored('emtechstack stop-api', 'cyan')}]: API has been stopped gracefully.")
     print(f"2. [{colored('emtechstack stop-infra', 'cyan')}]: Infrastructure has been stopped gracefully.")
     print(f"3. [{colored('emtechstack clean', 'cyan')}]: Code has been cleaned successfully.")
+
+def push_to_new_repo(repo_url, first_commit, branch_name): 
+    subprocess.run(f"git init && git add . && git commit -m '{first_commit}' && git branch -M {branch_name} && git remote add origin {repo_url} && git push -u origin main", shell=True, check=True)
+    print(f"The code has been pushed to {colored(repo_url, 'cyan')} at branch {colored(branch_name, 'cyan')}. The first commit message is {colored(first_commit, 'green')}.")
