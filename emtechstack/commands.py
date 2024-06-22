@@ -362,5 +362,19 @@ def graceful_shutdown():
     print(f"3. [{colored('emtechstack clean', 'cyan')}]: Code has been cleaned successfully.")
 
 def push_to_new_repo(repo_url, first_commit, branch_name): 
+    update_gitignore()
     subprocess.run(f"git init && git add . && git commit -m '{first_commit}' && git branch -M {branch_name} && git remote add origin {repo_url} && git push -u origin main", shell=True, check=True)
-    print(f"The code has been pushed to {colored(repo_url, 'cyan')} at branch {colored(branch_name, 'cyan')}. The first commit message is {colored(first_commit, 'green')}.")
+    subprocess.run(f"git add .gitignore && git commit -m 'Add .gitignore' && git push -u origin main", shell=True, check=True)
+    print(f"The code and .gitignore file have been pushed to {colored(repo_url, 'cyan')} at branch {colored(branch_name, 'cyan')}. The first commit message is {colored(first_commit, 'green')}.")
+
+def update_gitignore():
+    gitignore_path = os.path.join(os.getcwd(), ".gitignore")
+    if not os.path.exists(gitignore_path):
+        with open(gitignore_path, "w") as gitignore_file:
+            gitignore_file.write("*__pycache__*\n*nohup*\n*.pid*\n*.out\n*.env")
+        print("Added files to .gitignore")
+    else:
+        with open(gitignore_path, "a") as gitignore_file:
+            gitignore_file.write("\n*__pycache__*\n*nohup*\n*.pid\n*.out\n*.env")
+        print("Updated .gitignore with additional files")
+
