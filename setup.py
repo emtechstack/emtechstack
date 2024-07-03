@@ -1,8 +1,17 @@
 from setuptools import setup, find_packages
+from setuptools.command.install import install
+import subprocess, sys
+
+class PostInstallCommand(install):
+    """Post-installation for installation mode."""
+    def run(self):
+        install.run(self)
+        subprocess.call([sys.executable, '-m', 'emtechstack.post_install'])
+
 
 setup(
     name="emtechstack",
-    version="0.0.96",
+    version="0.0.98",
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
