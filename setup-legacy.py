@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="emtechstack",
-    version="0.0.95",
+    version="0.0.89",
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
