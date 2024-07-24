@@ -57,9 +57,10 @@ def stop_api():
 
 @cli.command()
 @click.option("--name", help="Name of the Conda environment to create and activate")
-def build(name):
+@click.option("--python", default="3.11", help="Python version. By default is 3.11")
+def build(name, python):
     """Build and activate the Conda environment, and install dependencies from requirements.txt"""
-    build_env(name)
+    build_env(name,python)
 
 
 @cli.command()

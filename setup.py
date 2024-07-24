@@ -11,7 +11,7 @@ class PostInstallCommand(install):
 
 setup(
     name="emtechstack",
-    version="0.0.98",
+    version="0.0.99",
     packages=find_packages(),
     include_package_data=True,
     install_requires=[

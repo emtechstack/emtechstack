@@ -176,13 +176,13 @@ def stop_api():
         print("No PID file found. API might not be running.")
 
 
-def build_env(name=None):
+def build_env(name=None,python="3.11"):
     try:
         if name is None:
             name = os.path.basename(os.getcwd())
         
         # Create the Conda environment
-        subprocess.run(['conda', 'create', '-n', name, 'python=3.10', '-y'], check=True)
+        subprocess.run(['conda', 'create', '-n', name, f'python={python}', '-y'], check=True)
         print(f"Conda environment '{name}' created")
 
         # Write a temporary shell script to activate the environment and install requirements
